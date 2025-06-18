@@ -216,7 +216,7 @@ export default function HomePage() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-orange-600"
+              className="border-white text-orange-600 hover:bg-white hover:text-orange-600"
             >
               Schedule a Visit
             </Button>
