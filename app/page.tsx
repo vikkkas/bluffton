@@ -1,10 +1,14 @@
+"use client"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Users, Clock, MapPin, Phone, Mail, Zap, Gamepad2, GraduationCap, Heart } from "lucide-react"
+import kids from "../assets/home/kids.webp"
+import { useRouter } from "next/navigation"
 
 export default function HomePage() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -12,7 +16,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge className="mb-4 bg-orange-100 text-orange-800 hover:bg-orange-100">Now Enrolling for 2024!</Badge>
+              <Badge className="mb-4 bg-orange-100 text-orange-800 hover:bg-orange-100">Now Enrolling for 2025!</Badge>
               <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 Where Learning Meets{" "}
                 <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
@@ -25,13 +29,17 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button
+              onClick={() => router.push("/programs")}
+
                   size="lg"
                   className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
                 >
                   View Programs
                 </Button>
-                <Button size="lg" variant="outline" className="border-orange-300 text-orange-600 hover:bg-orange-50">
-                  Schedule Tour
+                <Button
+              onClick={() => router.push("/register")}
+                 size="lg" variant="outline" className="border-orange-300 text-orange-600 hover:bg-orange-50">
+                  Register
                 </Button>
               </div>
               <div className="flex items-center space-x-6 text-sm text-gray-600">
@@ -52,7 +60,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-400 rounded-2xl transform rotate-3"></div>
               <Image
-                src="/placeholder.svg?height=500&width=600"
+                src={kids}
                 alt="Children engaged in STEM and play activities"
                 width={600}
                 height={500}
@@ -93,7 +101,6 @@ export default function HomePage() {
                 </ul>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-600 mb-2">$150/week</div>
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600">Learn More</Button>
                 </div>
               </CardContent>
             </Card>
@@ -117,7 +124,6 @@ export default function HomePage() {
                 </ul>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-600 mb-2">$80/session</div>
-                  <Button className="w-full bg-green-500 hover:bg-green-600">Learn More</Button>
                 </div>
               </CardContent>
             </Card>
@@ -141,7 +147,6 @@ export default function HomePage() {
                 </ul>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-purple-600 mb-2">$200/week</div>
-                  <Button className="w-full bg-purple-500 hover:bg-purple-600">Learn More</Button>
                 </div>
               </CardContent>
             </Card>
@@ -165,7 +170,6 @@ export default function HomePage() {
                 </ul>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-600 mb-2">$120/week</div>
-                  <Button className="w-full bg-pink-500 hover:bg-pink-600">Learn More</Button>
                 </div>
               </CardContent>
             </Card>
@@ -182,15 +186,18 @@ export default function HomePage() {
             quick and easy!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="bg-white text-orange-600 hover:bg-gray-100">
+            <Button
+              onClick={() => router.push("/register")}
+             size="lg" variant="secondary" className="bg-white text-orange-600 hover:bg-gray-100">
               Start Registration
             </Button>
             <Button
               size="lg"
               variant="outline"
+              onClick={() => router.push("/programs")}
               className="border-white text-orange-600 hover:bg-white hover:text-orange-600"
             >
-              Schedule a Visit
+              Program
             </Button>
           </div>
           <div className="mt-8 flex items-center justify-center space-x-8 text-orange-100">
@@ -402,7 +409,7 @@ export default function HomePage() {
                 <form className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Parent Name</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                       <input
                         type="text"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
