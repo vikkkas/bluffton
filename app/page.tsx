@@ -6,11 +6,9 @@ import {
   Star, Users, Clock, MapPin, Phone, 
   Mail, Zap, Gamepad2, GraduationCap, Heart 
 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-
 import kids from "../assets/home/kids.webp"
 
 // Program card data for easy maintenance
@@ -61,7 +59,7 @@ const PROGRAMS = [
     title: "Learn & Play",
     description: "Early Childhood Development",
     icon: Heart,
-    color: "pink",
+    color: "blue",
     features: [
       "Age-appropriate activities",
       "Social skill development",
@@ -97,7 +95,7 @@ const FEATURES = [
     title: "Safe Environment",
     description: "Secure, nurturing space where children can learn and grow",
     icon: Heart,
-    color: "pink"
+    color: "blue"
   }
 ]
 
@@ -145,9 +143,9 @@ const ProgramCard = ({ program }) => {
   const { title, description, icon: Icon, color, features, price } = program
   
   return (
-    <Card className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-${color}-50 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : 'rose'}-50`}>
+    <Card className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-${color}-50 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : color === 'rose' ? 'pink' : 'rose'}-50`}>
       <CardHeader className="text-center pb-4">
-        <div className={`w-16 h-16 bg-gradient-to-br from-${color}-500 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : 'rose'}-500 rounded-full flex items-center justify-center mx-auto mb-4`}>
+        <div className={`w-16 h-16 bg-gradient-to-br from-${color}-500 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : color === 'rose' ? 'pink' : 'rose'}-500 rounded-full flex items-center justify-center mx-auto mb-4`}>
           <Icon className="h-8 w-8 text-white" />
         </div>
         <CardTitle className={`text-xl text-${color}-800`}>{title}</CardTitle>
@@ -349,7 +347,7 @@ export default function HomePage() {
               const { title, description, icon: Icon, color } = feature;
               return (
                 <div key={index} className="text-center">
-                  <div className={`w-16 h-16 bg-gradient-to-br from-${color}-500 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : 'rose'}-500 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <div className={`w-16 h-16 bg-gradient-to-br from-${color}-500 to-${color === 'blue' ? 'cyan' : color === 'green' ? 'emerald' : color === 'purple' ? 'violet' : color === 'pink' ? 'pink' : 'rose'}-500 rounded-full flex items-center justify-center mx-auto mb-4`}>
                     <Icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>

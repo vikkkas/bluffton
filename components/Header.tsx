@@ -27,9 +27,11 @@ const NavLink = ({ href, children, className = '' }: NavLinkProps) => {
       {children}
     </Link>
   )
+  
 }
 
 const NAV_LINKS = [
+  { name: "Home", href: "/" },
   { name: "Programs", href: "/programs" },
   { name: "Register", href: "/register" },
 ]
