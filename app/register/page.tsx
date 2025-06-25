@@ -155,9 +155,9 @@ export default function RegistrationPage() {
   })
 
   const onFeeTypeChange = (value: string) => {
-    // Cast value to proper type for the enum
-    const feeType = value as keyof typeof FEE_TYPES
-    const newAmount = FEE_TYPES[feeType]?.amount || ""
+    // Find the fee type by ID instead of casting
+    const feeType = Object.values(FEE_TYPES).find(ft => ft.id === value)
+    const newAmount = feeType?.amount || ""
     
     setAmount(newAmount)
     form.setValue("payment.amount", newAmount)
@@ -513,18 +513,8 @@ export default function RegistrationPage() {
                               </FormLabel>
                               <div className="text-right">
                                 <div className="text-3xl font-bold text-green-600">${amount || "0.00"}</div>
-                                <div className="text-sm text-gray-600">USD</div>
                               </div>
                             </div>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                id="amount"
-                                placeholder="0.00"
-                                className="mt-2"
-                                readOnly
-                              />
-                            </FormControl>
                             <FormMessage />
                           </div>
                         </FormItem>
