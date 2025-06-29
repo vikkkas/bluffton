@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { 
   Star, Users, Clock, MapPin, Phone, 
   Mail, Zap, Gamepad2, GraduationCap, Heart 
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import kids from "../assets/home/kids.webp"
+import { sendEmail } from "@/lib/actions"
 
 // Program card data for easy maintenance
 const PROGRAMS = [
@@ -168,6 +170,22 @@ const ProgramCard = ({ program }) => {
 
 export default function HomePage() {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleContactSubmit = async (formData: FormData) => {
+    setIsSubmitting(true);
+    setSubmitMessage("");
+
+    try {
+      const result = await sendEmail(formData);
+      setSubmitMessage(result.message);
+    } catch (error) {
+      setSubmitMessage("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -390,49 +408,59 @@ export default function HomePage() {
 
             <Card className="border-0 shadow-xl">
               <CardHeader>
-                <CardTitle className="text-2xl">Quick Registration Interest</CardTitle>
-                <CardDescription>Let us know which program interests you most</CardDescription>
+                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                <CardDescription>Get in touch with us for any questions or program information</CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
+                <form action={handleContactSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                       <input
+                        name="name"
                         type="text"
+                        required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                         placeholder="Your name"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Child's Age</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                       <input
-                        type="number"
+                        name="email"
+                        type="email"
+                        required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        placeholder="Age"
+                        placeholder="your@email.com"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input
-                      type="email"
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                    <textarea
+                      name="message"
+                      required
+                      rows={4}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="your@email.com"
+                      placeholder="Tell us about your questions or program interests..."
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Program Interest</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
-                      <option>Select a program</option>
-                      {PROGRAMS.map((program, index) => (
-                        <option key={index}>{program.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
-                    Get Information
+                  <Button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
+                  {submitMessage && (
+                    <div className={`text-center p-3 rounded-md ${
+                      submitMessage.includes("success") 
+                        ? "bg-green-100 text-green-800" 
+                        : "bg-red-100 text-red-800"
+                    }`}>
+                      {submitMessage}
+                    </div>
+                  )}
                 </form>
               </CardContent>
             </Card>

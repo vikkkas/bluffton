@@ -23,9 +23,10 @@ import { StateSelect } from "@/components/StateSelect"
 
 type RegistrationFormData = z.infer<typeof registrationSchema>
 export default function RegistrationPage() {
-  const [cardType, setCardType] = useState("");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+  const [amount, setAmount] = useState("")
+  const [membershipOnly, setMembershipOnly] = useState(false)
+  const [selectedPrograms, setSelectedPrograms] = useState<string[]>([])
+  
   const form = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
